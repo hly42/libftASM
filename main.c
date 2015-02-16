@@ -6,7 +6,7 @@
 /*   By: hly <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/02/04 14:17:49 by hly               #+#    #+#             */
-/*   Updated: 2015/02/16 18:49:17 by hly              ###   ########.fr       */
+/*   Updated: 2015/02/16 20:03:12 by hly              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -179,6 +179,85 @@ void	test_ft_tolower()
 	test_ft_to(ft_tolower, 255);
 }
 
+void	test_ft_puts(char **str, int tabSize)
+{
+	int		i;
+
+	printf("--------------------\n  TEST FT_PUTS\n--------------------\n");
+	i = 0;
+	while (i < tabSize)
+		ft_puts(str[i++]);
+}
+
+void	test_ft_strlen(char **str)
+{
+	int		i;
+
+	i = 0;
+	printf("--------------------\n  TEST FT_STRLEN\n--------------------\n");
+	while (i < 9)
+	{
+		printf("Length of \"%s\": %zu\n", str[i], ft_strlen(str[i]));
+		i++;
+	}
+}
+
+void	test_ft_memset(char **str, int c)
+{
+	char	*s;
+	size_t	n[] = { 0, 3};
+	int		i;
+
+	i = 0;
+	printf("--------------------\n  TEST FT_MEMSET\n--------------------\n");
+	printf("Test on the string \"%s\"\n", str[0]);
+	while (i < 2)
+	{
+		s = strdup(str[0]);
+		s = (char *)ft_memset((void *)s, c, n[i]);
+		printf("   case: n = %zu, c = %c | result: %s\n", n[i], c, s);
+		free(s);
+		i++;
+	}
+}
+
+void	test_ft_memcpy(char **str)
+{
+	char	*s;
+	size_t	n[] = { 0, 3, 10};
+	int		i;
+
+	i = 0;
+	printf("--------------------\n  TEST FT_MEMCPY\n--------------------\n");
+	printf("Test with \"%s\" and \"%s\"\n", str[0], str[1]);
+	while (i < 3)
+	{
+		s = strdup(str[0]);
+		s = (char *)ft_memcpy((void *)s, (void *)str[1], n[i]);
+		printf("   case: n = %zu | result: %s\n", n[i], s);
+		free(s);
+		i++;
+	}
+}
+
+void	test_ft_strdup(char **str)
+{
+	size_t	n[] = { 0, 3, 5 };
+	char	*s;
+	int		i;
+
+	i = 0;
+	printf("--------------------\n  TEST FT_STRDUP\n--------------------\n");
+	while (i < 3)
+	{
+		s = ft_strdup(str[n[i]]);
+		printf("Test with \"%s\": %p %s\n", str[n[i]], s, s);
+		free(s);
+		s = NULL;
+		i++;
+	}
+}
+
 int		main()
 {
 	char	*str[] = {	"0123456789",
@@ -189,9 +268,7 @@ int		main()
 						"a",
 						"1",
 						"$",
-						"abc123$!?",
-						NULL,
-						NULL + 2 };
+						"abc123$!?" };
 
 	test_ft_bzero(str);
 	test_ft_strcat(str);
@@ -202,16 +279,15 @@ int		main()
 	test_ft_isprint();
 	test_ft_toupper();
 	test_ft_tolower();
-/*	ft_puts(s1);
-	ft_puts(NULL);
-	ft_puts(null);
-	printf("%s\n", s1);
-	printf("memset: %s\n", (char *)ft_memset(s1, 'a', 4));
-	printf("memset: %s\n", (char *)memset(s1, 'a', 10));
-	printf("memcpy: %s\n", (char *)ft_memcpy(s1, toto, 2));
-	ft_cat(open("./textfile", O_RDONLY));
+	test_ft_puts(str, 9);
+	test_ft_strlen(str);
+	test_ft_memset(str, 'a');
+	test_ft_memcpy(str);
+	test_ft_strdup(str);
+	//strcpy
+	//strcat
+/*	ft_cat(open("./textfile", O_RDONLY));
 	printf("%d\n", (open("./textfile", O_RDONLY)));
 	ft_cat(open("./textfile", O_RDONLY));*/
-	(void)str;
 	return(0);
 }

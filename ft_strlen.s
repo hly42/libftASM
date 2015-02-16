@@ -3,6 +3,7 @@ section .text
 global	_ft_strlen
 
 _ft_strlen:
+		push	rdi
 		push	rcx			;save rcx value using the stack
 		xor		rcx, rcx	;put rcx to zero
 		xor		rax, rax	;put rax to zero
@@ -15,6 +16,7 @@ repne	scasb				;cmp each byte of the argument to the value in AL(rax)
 
 return:
 		pop		rcx			;restore rcx value
+		pop		rdi
 
 end:
 ret
