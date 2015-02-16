@@ -6,7 +6,7 @@
 /*   By: hly <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/02/04 14:17:49 by hly               #+#    #+#             */
-/*   Updated: 2015/02/16 17:57:16 by hly              ###   ########.fr       */
+/*   Updated: 2015/02/16 18:49:17 by hly              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,49 +65,34 @@ void	test_ft_strcat(char **str)
 	free(s);
 	free(s2);
 }
-/*
-void	test_ft_is(char **str, int (*function)(int), int *n, int nbtest)
-{
-	int		i;
-	int		j;
 
-	i = 0;
-	while (i < nbtest)
+void	print_fail_tab(int *failTab, int max)
+{
+	int	i;
+	int	j;
+
+	i = -1;
+	j = 0;
+	printf("Unchanged :\n");
+	while (++i <= max)
 	{
-		j = 0;
-		printf("Test with \"%s\": ", str[n[i]]);
-		while (j == 0 || str[n[i]][j])
+		if (failTab[i])
 		{
-			if (function(str[n[i]][j]))
-			{
-				if (isprint(str[n[i]][j]))
-					printf("\033[22;32m%c\033[0m", str[n[i]][j]);
-				else
-					printf("\033[22;32mOK\033[0m");
-			}
-			else
-			{
-				if (isprint(str[n[i]][j]))
-					printf("\033[22;31m%c\033[0m", str[n[i]][j]);
-				else
-					printf("\033[22;31mFAIL\033[0m");
-			}
+			printf("%d ", i);
 			j++;
 		}
-		printf("\n");
-		i++;
+		if (j % 30 == 0)
+			printf("\n");
 	}
+	printf("\n");
 }
-*/
 
 void	test_ft_is(int (*function)(int), int max)
 {
 	int		i;
-	int		j;
 	int		failTab[256] = {0};
 
 	i = 0;
-	j = 0;
 	while (i <= max)
 	{
 		if (isprint(i))
@@ -123,46 +108,33 @@ void	test_ft_is(int (*function)(int), int max)
 	}
 	printf("\n");
 	if (max > 127)
-	{
-		i = -1;
-		printf("Failed at:\n");
-		while (++i <= max)
-		{
-			if (failTab[i])
-			{
-				printf("%d ", i);
-				j++;
-			}
-			if (j % 30 == 0)
-				printf("\n");
-		}
-		printf("\n");
-	}
+		print_fail_tab(failTab, max);
 }
 
-void	test_ft_to(char **str, int (*function)(int), int *n, int nbtest)
+void	test_ft_to(int (*function)(int), int max)
 {
 	int		i;
-	int		j;
+	int		failTab[256] = {0};
 	int		result;
 
 	i = 0;
-	while (i < nbtest)
+	while (i <= max)
 	{
-		j = 0;
-		printf("Test with \"%s\": ", str[n[i]]);
-		while (j == 0 || str[n[i]][j])
+		if (isprint(i))
 		{
-			result = function(str[n[i]][j]);
-			if (str[n[i]][j] != result)
+			result = function(i);
+			if (result != i)
 				printf("\033[22;32m%c\033[0m", result);
 			else
-				printf("\033[22;31m%c\033[0m", result);
-			j++;
+				printf("%c", result);
 		}
-		printf("\n");
+		else
+			failTab[i] = 1;
 		i++;
 	}
+	printf("\n");
+	if (max > 127)
+		print_fail_tab(failTab, max);
 }
 
 void	test_ft_isalpha()
@@ -195,20 +167,16 @@ void	test_ft_isprint()
 	test_ft_is(ft_isprint, 255);
 }
 
-void	test_ft_toupper(char **str)
+void	test_ft_toupper()
 {
-	int		n[] = { 0, 1, 2, 3, 4, 5, 6, 7, 8};
-
 	printf("--------------------\n  TEST FT_TOUPPER\n--------------------\n");
-	test_ft_to(str, ft_toupper, n, 9);
+	test_ft_to(ft_toupper, 255);
 }
 
-void	test_ft_tolower(char **str)
+void	test_ft_tolower()
 {
-	int		n[] = { 0, 1, 2, 3, 4, 5, 6, 7, 8};
-
 	printf("--------------------\n  TEST FT_TOLOWER\n--------------------\n");
-	test_ft_to(str, ft_tolower, n, 9);
+	test_ft_to(ft_tolower, 255);
 }
 
 int		main()
@@ -232,45 +200,18 @@ int		main()
 	test_ft_isalnum();
 	test_ft_isascii();
 	test_ft_isprint();
-	test_ft_toupper(str);
-	test_ft_tolower(str);
-/*	c = 97;
-	printf("%p\n", s1);
-	s1 = ft_strdup(toto);
-	printf("%p\n", s1);
-	free(s1);
-	printf("strdup: %s\n", ft_strdup(tata));
-	s1 = strdup(toto);
-	printf("s1: %s\n", s1);
-	ft_bzero((void *)s1, strlen(toto));
-	printf("%s\n", s1);
-	printf("%s\n", s1 + 1);
-	printf("%s\n", s1 + 2);
-	printf("%s\n", s1 + 3);
-	s1 = ft_strdup(toto);
-	printf("s1: %s\n", s1);
-	s1 = ft_strcpy(s1, tata);
-	printf("s1 after copy: %s\n", s1);
-	printf("s1 length: %zu\n", ft_strlen(s1));
-	printf("s1 after concatenation: %s\n", ft_strcat(s1, tata));
-	printf("%c is alpha: %d\n", c, ft_isalpha(c));
-	printf("%c is digit: %d\n", c, ft_isdigit(c));
-	printf("%c is alnum: %d\n", c, ft_isalnum(c));
-	printf("%c is ascii: %d\n", c, ft_isascii(c));
-	printf("%c is print: %d\n", c, ft_isprint(c));
-	printf("%c toupper: %c\n", c, ft_toupper(c));
-	c = ft_toupper(c);
-	printf("%c tolower: %c\n", c, ft_tolower(c));
-	ft_puts(s1);
-//	ft_puts(NULL);
-//	ft_puts(null);
+	test_ft_toupper();
+	test_ft_tolower();
+/*	ft_puts(s1);
+	ft_puts(NULL);
+	ft_puts(null);
 	printf("%s\n", s1);
 	printf("memset: %s\n", (char *)ft_memset(s1, 'a', 4));
-//	printf("memset: %s\n", (char *)memset(s1, 'a', 10));
+	printf("memset: %s\n", (char *)memset(s1, 'a', 10));
 	printf("memcpy: %s\n", (char *)ft_memcpy(s1, toto, 2));
 	ft_cat(open("./textfile", O_RDONLY));
-//	printf("%d\n", (open("./textfile", O_RDONLY)));*/
-//	ft_cat(open("./textfile", O_RDONLY));
+	printf("%d\n", (open("./textfile", O_RDONLY)));
+	ft_cat(open("./textfile", O_RDONLY));*/
 	(void)str;
 	return(0);
 }
