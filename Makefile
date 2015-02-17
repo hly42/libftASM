@@ -6,7 +6,7 @@
 #    By: hly <marvin@42.fr>                         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/02/04 15:57:17 by hly               #+#    #+#              #
-#    Updated: 2015/02/13 19:06:33 by hly              ###   ########.fr        #
+#    Updated: 2015/02/17 21:00:23 by hly              ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,6 @@ FLAG = -f macho64
 INCLUDES = ./includes/
 
 SRC = ft_bzero.s\
-	  ft_strcpy.s\
 	  ft_strlen.s\
 	  ft_strcat.s\
 	  ft_isalpha.s\
@@ -64,4 +63,6 @@ test: main.o $(NAME)
 	@(gcc -Wall -Werror -Wextra -L. -lfts -I$(INCLUDES) -o test main.o)
 	@echo "\033[32m\"test\" created !\033[0m"
 
+fcleantest: fclean
+	@(rm -f main.o)
 .PHONY: clean fclean all re

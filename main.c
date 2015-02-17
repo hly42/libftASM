@@ -6,13 +6,12 @@
 /*   By: hly <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/02/04 14:17:49 by hly               #+#    #+#             */
-/*   Updated: 2015/02/16 20:03:12 by hly              ###   ########.fr       */
+/*   Updated: 2015/02/17 20:57:08 by hly              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
 #include <string.h>
-#include <strings.h>
 #include <stdlib.h>
 #include <fcntl.h>
 #include <ctype.h>
@@ -66,14 +65,15 @@ void	test_ft_strcat(char **str)
 	free(s2);
 }
 
-void	print_fail_tab(int *failTab, int max)
+void	print_fail_tab(int *failTab, int max, char *msg)
 {
 	int	i;
 	int	j;
 
 	i = -1;
 	j = 0;
-	printf("Unchanged :\n");
+	
+	printf("%s :\n", msg);
 	while (++i <= max)
 	{
 		if (failTab[i])
@@ -108,7 +108,7 @@ void	test_ft_is(int (*function)(int), int max)
 	}
 	printf("\n");
 	if (max > 127)
-		print_fail_tab(failTab, max);
+		print_fail_tab(failTab, max, "Failed at");
 }
 
 void	test_ft_to(int (*function)(int), int max)
@@ -134,7 +134,7 @@ void	test_ft_to(int (*function)(int), int max)
 	}
 	printf("\n");
 	if (max > 127)
-		print_fail_tab(failTab, max);
+		print_fail_tab(failTab, max, "Unchanged");
 }
 
 void	test_ft_isalpha()
@@ -258,6 +258,17 @@ void	test_ft_strdup(char **str)
 	}
 }
 
+void	test_ft_cat()
+{
+	printf("--------------------\n  TEST FT_CAT\n--------------------\n");
+	printf("Test with fd = -1:\n");
+	ft_cat(-1);
+	printf("Test with a file:\n");
+	ft_cat(open("./textfile/file1", O_RDONLY));
+	printf("Test with standard input:\n");
+	ft_cat(0);
+}
+
 int		main()
 {
 	char	*str[] = {	"0123456789",
@@ -284,10 +295,6 @@ int		main()
 	test_ft_memset(str, 'a');
 	test_ft_memcpy(str);
 	test_ft_strdup(str);
-	//strcpy
-	//strcat
-/*	ft_cat(open("./textfile", O_RDONLY));
-	printf("%d\n", (open("./textfile", O_RDONLY)));
-	ft_cat(open("./textfile", O_RDONLY));*/
+	test_ft_cat();
 	return(0);
 }

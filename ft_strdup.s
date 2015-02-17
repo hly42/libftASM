@@ -9,8 +9,6 @@ global	_ft_strdup
 _ft_strdup:
 	push	rdi
 	call	_ft_strlen
-	cmp		rax, 0
-	jz		allocateMem
 	inc		rax
 
 allocateMem:
@@ -19,6 +17,8 @@ allocateMem:
 	call 	_malloc
 	cmp		rax, 0
 	jz		error
+
+copy:
 	mov		rdi, rax
 	add		rsp, 8
 	pop		rsi

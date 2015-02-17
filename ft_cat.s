@@ -8,7 +8,7 @@ section	.text
 
 global	_ft_cat
 
-extern	_ft_strlen
+extern	_ft_strlen, _ft_bzero
 
 _ft_cat:
 	mov		r15, rdi
@@ -19,6 +19,7 @@ read:
 	mov		rdx, bufferSize
 	mov		rax, 0x2000003		;read
 	syscall
+	jc		end
 	cmp		rax, 0
 	jz		end
 
@@ -32,6 +33,9 @@ print:
 	syscall
 	cmp		rax, 0
 	jl		end
+	lea		rdi, [rel content]
+	mov		rsi, bufferSize
+	call	_ft_bzero
 	jmp		read
 
 end:
