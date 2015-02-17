@@ -6,7 +6,7 @@
 #    By: hly <marvin@42.fr>                         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/02/04 15:57:17 by hly               #+#    #+#              #
-#    Updated: 2015/02/17 21:00:23 by hly              ###   ########.fr        #
+#    Updated: 2015/02/17 21:13:38 by hly              ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -64,5 +64,6 @@ test: main.o $(NAME)
 	@echo "\033[32m\"test\" created !\033[0m"
 
 fcleantest: fclean
-	@(rm -f main.o)
+	@(rm -f main.o test)
+	@echo "\033[31m\"test\" deleted\033[0m"
 .PHONY: clean fclean all re

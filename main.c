@@ -6,7 +6,7 @@
 /*   By: hly <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/02/04 14:17:49 by hly               #+#    #+#             */
-/*   Updated: 2015/02/17 20:57:08 by hly              ###   ########.fr       */
+/*   Updated: 2015/02/17 21:16:26 by hly              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -265,6 +265,8 @@ void	test_ft_cat()
 	ft_cat(-1);
 	printf("Test with a file:\n");
 	ft_cat(open("./textfile/file1", O_RDONLY));
+	printf("Test with an empty file:\n");
+	ft_cat(open("./textfile/emptyFile", O_RDONLY));
 	printf("Test with standard input:\n");
 	ft_cat(0);
 }
