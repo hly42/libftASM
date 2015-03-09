@@ -8,7 +8,7 @@ section	.text
 
 global	_ft_cat
 
-extern	_ft_strlen, _ft_bzero
+extern	_ft_bzero
 
 _ft_cat:
 	mov		r15, rdi
