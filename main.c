@@ -6,7 +6,11 @@
 /*   By: hly <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/02/04 14:17:49 by hly               #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2015/03/09 16:36:56 by hly              ###   ########.fr       */
+=======
+/*   Updated: 2015/02/17 21:16:26 by hly              ###   ########.fr       */
+>>>>>>> 0aac60474cb613f4db1fb72ecc1a9c00e751314c
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -269,7 +273,10 @@ void	test_ft_cat()
 	ft_cat(open("./textfile/emptyFile", O_RDONLY));
 	printf("Test with standard input:\n");
 	ft_cat(0);
+<<<<<<< HEAD
 	ft_cat(open("./test", O_RDONLY));
+=======
+>>>>>>> 0aac60474cb613f4db1fb72ecc1a9c00e751314c
 }
 
 int		main()
@@ -299,6 +306,9 @@ int		main()
 	test_ft_memcpy(str);
 	test_ft_strdup(str);
 	test_ft_cat();
+<<<<<<< HEAD
 	(void)str;
+=======
+>>>>>>> 0aac60474cb613f4db1fb72ecc1a9c00e751314c
 	return(0);
 }
